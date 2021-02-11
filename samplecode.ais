@@ -1,0 +1,11 @@
+start;
+	integer x;
+	integer y;
+	integer z;
+	x = 5.3;
+	z = 1;
+	y = 5 - 2;
+	x = x - y;
+	z = z - x;
+	print z;
+end;
