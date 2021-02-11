@@ -3,6 +3,6 @@ start;
 	integer y;
 	x = 10;
 	y = 2;
-	x = y / 10;
+	x = sqrt 10;
 	print x;
 end;

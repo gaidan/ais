@@ -1,0 +1,8 @@
+begin;
+	integer x;
+	integer y;
+	x = sqrt 21249;
+	y = x ^ 2;
+	print x;
+	print y;
+end; 

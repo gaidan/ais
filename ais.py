@@ -1,6 +1,6 @@
 from sys import argv
 
-tokenlist = [['start', 'nes'], ['end', 'nes'], ['integer', 'asn'], ['=', 'asn'], ['*', 'op'], ['/', 'op'], ['+', 'op'], ['-', 'op'], ['print', 'fun']]
+tokenlist = [['start', 'nes'], ['end', 'nes'], ['integer', 'asn'], ['=', 'asn'], ['^', 'op'], ['sqrt', 'op'], ['*', 'op'], ['/', 'op'], ['+', 'op'], ['-', 'op'], ['print', 'fun']]
 
 code = open(argv[1], 'r').read()
 
@@ -75,8 +75,9 @@ def createCode(tokens):
         order = ['asn', 'fun', 'op', 'var', 'val']
         codeord = []
         for token in phrase:
-            if token[1] != 'nes':
-                codeorder.append(token)
+            if token:
+                if token[1] != 'nes':
+                    codeorder.append(token)
         flagchange = False
         for i in range(0, len(codeorder)):
             # if codeorder[i][1] == 'var':
@@ -118,9 +119,9 @@ def createCode(tokens):
             except:
                 pass
         codez.append(codeorder)
+    scode = ['import math \n']
     for codes in codez:
         if codes:
-            scode = []
             for i in range(0, len(codes)-1):
                 if codes[i][1] == 'asn' and codes[i][0] != '=':
                     scode.append('{} = 0 '.format(codes[i+1][0]))
@@ -145,8 +146,13 @@ def createCode(tokens):
                     scode.append('{} * {}'.format(codes[i+1][0], codes[i+2][0]))
                 if codes[i][1] == 'fun' and codes[i][0] == 'print':
                     scode.append('print({})'.format(codes[i+1][0]))
+                if codes[i][1] == 'op' and codes[i][0] == '^':
+                    scode.append('{} ** {}'.format(codes[i+1][0], codes[i+2][0]))
+                if codes[i][1] == 'op' and codes[i][0] == 'sqrt':
+                    scode.append('math.sqrt({})'.format(codes[i+1][0]))
             scode = ''.join(scode)
             code = '{}\n{}'.format(code, scode)
+            scode = []
     return code
 
 phrased_tokens = parse(code)
