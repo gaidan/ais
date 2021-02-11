@@ -156,6 +156,15 @@ def createCode(tokens):
     return code
 
 phrased_tokens = parse(code)
-wf = open('a.py', 'w')
+haslineo = False
+lineoplace = 0
+for i in range(0, len(argv)):
+    if argv[i] == '-O':
+        haslineo = True
+        lineoplace = i
+if haslineo:
+    wf = open(argv[lineoplace+1], 'w')
+else:
+    wf = open('a.py', 'w')
 wf.write(createCode(phrased_tokens))
 wf.close()
